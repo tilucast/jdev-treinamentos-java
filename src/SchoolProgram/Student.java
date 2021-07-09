@@ -14,7 +14,7 @@ public class Student {
     private String fatherName;
     private Date dateEnrollment;
     private double average;
-    private Subject subjects = new Subject();
+    private List<Subject> subjects = new ArrayList();
 
     Student(){
         name = "Lulio";
@@ -34,7 +34,7 @@ public class Student {
         this.motherName = motherName;
         this.fatherName = fatherName;
         dateEnrollment = new Date();
-        subjects.setScoresAndSubjects();
+        HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
 
@@ -94,12 +94,16 @@ public class Student {
         this.dateEnrollment = dateEnrollment;
     }
 
-    public double getAverage(){
-        return average;
+    public List<Subject> getSubjects(){
+        return subjects;
     }
 
-    public Subject getSubject() {
-        return subjects;
+    public void setSubjects(List<Subject> subjects){
+        this.subjects = subjects;
+    }
+
+    public double getAverage(){
+        return average;
     }
 
     public boolean isApproved(){
@@ -107,7 +111,7 @@ public class Student {
     }
 
     private void calculateAverage(){
-        average = Arrays.stream(subjects.getScores()).average().orElse(Double.MIN_VALUE);
+        average = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum) / subjects.size();
     }
 
     @Override

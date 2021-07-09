@@ -1,49 +1,55 @@
 package SchoolProgram;
 
-import javax.swing.*;
-import java.util.Arrays;
+import java.util.Objects;
 
 public class Subject {
 
-    private double[] scores = {0,0,0,0};
-    private String[] subjects = {"","","",""};
+    private double score;
+    private String subject;
 
-    public void setScoresAndSubjects(){
-        for (int i = 0; i < scores.length; i++) {
-            subjects[i] = JOptionPane.showInputDialog("Type the subject name: ");
+    Subject(){
 
-            scores[i] = Double.parseDouble(JOptionPane.showInputDialog("Type the score (1-5): "));
-        }
     }
 
-    public double[] getScores() {
-        return scores;
+    Subject(double score, String subject){
+        this.score = score;
+        this.subject = subject;
     }
 
-    public String[] getSubjects() {
-        return subjects;
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n    score=" + score +
+                ",\n    subject='" + subject + '\'' +
+                "\n}";
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Subject subject = (Subject) o;
-        return Arrays.equals(scores, subject.scores) && Arrays.equals(subjects, subject.subjects);
+        Subject subject1 = (Subject) o;
+        return Double.compare(subject1.score, score) == 0 && subject.equals(subject1.subject);
     }
 
     @Override
     public int hashCode() {
-        int result = Arrays.hashCode(scores);
-        result = 31 * result + Arrays.hashCode(subjects);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{\n" +
-                " scores=" + Arrays.toString(scores) +
-                ",\n subjects=" + Arrays.toString(subjects) +
-                "}";
+        return Objects.hash(score, subject);
     }
 }
