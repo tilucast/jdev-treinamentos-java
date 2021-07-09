@@ -1,6 +1,7 @@
 package SchoolProgram;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Student {
 
@@ -34,6 +35,7 @@ public class Student {
         this.motherName = motherName;
         this.fatherName = fatherName;
         dateEnrollment = new Date();
+
         HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
@@ -111,6 +113,10 @@ public class Student {
     }
 
     private void calculateAverage(){
+//        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
+
+        //either of these yields to the same result. But apparently, average is using some sort of reduction under the hood.
+
         average = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum) / subjects.size();
     }
 
