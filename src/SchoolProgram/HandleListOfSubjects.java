@@ -21,13 +21,23 @@ abstract public class HandleListOfSubjects {
         }
     }
 
-    static public List<Subject> delete(List<Subject> subjects){
+    static public void delete(List<Subject> subjects){
+        //Neither of these implementations are actually handling any kind of errors.
+
+
         String toDelete = JOptionPane.showInputDialog("Name of the subject you want to delete: ");
-        return subjects.stream().filter(subj -> !subj.getSubject().equals(toDelete)).collect(Collectors.toList());
+
+
+        //The implementation below modifies the list in place. Change the return type to match the implementation preferred;
+        subjects.remove(subjects.stream().filter(subj -> subj.getSubject().equalsIgnoreCase(toDelete)).findAny().orElse(null));
+
+
+        //The implementation below returns a new modified list.
+        //return subjects.stream().filter(subj -> !subj.getSubject().equalsIgnoreCase(toDelete)).collect(Collectors.toList());
     }
 
     //this method shouldn't exist, but anyways.
-    // Also, this method modifies the param in place. Which differs from the two above.
+    // Also, this method modifies the param in place, which differs from the one above.
     static public void deleteMany(List<Subject> subjects){
         String option = JOptionPane.showInputDialog("1 - Delete a subject, 0 - exit.");
 

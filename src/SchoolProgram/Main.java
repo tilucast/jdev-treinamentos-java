@@ -6,9 +6,6 @@ public class Main {
         StudentClass studentclass = new StudentClass();
         studentclass.populate();
 
-        System.out.println(studentclass);
-        studentclass.find();
-
+        System.out.println(studentclass.getStudentMap());
     }
-
 }

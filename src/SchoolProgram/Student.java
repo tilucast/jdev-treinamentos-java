@@ -16,6 +16,7 @@ public class Student {
     private Date dateEnrollment;
     private double average;
     private List<Subject> subjects = new ArrayList();
+    private String studentStatus;
 
     Student(){
         name = "Lulio";
@@ -25,6 +26,19 @@ public class Student {
         motherName = "Lulia";
         fatherName = "Lulião";
         dateEnrollment = new Date();
+    }
+
+    Student(String name){
+        this.name =  name;
+        age = 15;
+        dateOfBirth = "12-09-1967";
+        SSN = "2844657";
+        motherName = "Lulia";
+        fatherName = "Lulião";
+        dateEnrollment = new Date();
+
+        HandleListOfSubjects.populate(subjects);
+        calculateAverage();
     }
 
     Student(String name, int age, String dateOfBirth, String SSN, String motherName, String fatherName){
@@ -108,16 +122,29 @@ public class Student {
         return average;
     }
 
-    public boolean isApproved(){
-        return average >= 3.5;
-    }
-
     private void calculateAverage(){
 //        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
 
         //either of these yields to the same result. But apparently, average is using some sort of reduction under the hood.
 
         average = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum) / subjects.size();
+        setStudentStatus();
+    }
+
+    public String getStudentStatus(){
+        return studentStatus;
+    }
+
+    private void setStudentStatus(){
+        double studentavg = this.average;
+
+        if(studentavg >= 3 && studentavg < 3.5){
+            studentStatus = STUDENT_STATUS.ON_SUMMER_SCHOOL;
+        } else if(studentavg >= 3.5){
+            studentStatus = STUDENT_STATUS.APPROVED;
+        } else{
+            studentStatus = STUDENT_STATUS.REPROVED;
+        }
     }
 
     @Override
@@ -132,7 +159,8 @@ public class Student {
                 ",\n dateEnrollment=" + dateEnrollment +
                 ",\n average=" + average + '\'' +
                 ",\n subjects=" + subjects + '\'' +
-                '}';
+                ",\n status=" + studentStatus + '\'' +
+                "}\n";
     }
 
     @Override
