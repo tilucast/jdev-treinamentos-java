@@ -33,6 +33,8 @@ public class StudentClass {
         this.studentMap = studentMap;
     }
 
+
+    // This method shouldn't be here. But im not sure where to place it.
     public void populate(){
         String size = JOptionPane.showInputDialog("How many students do you want to create?");
         for (int i = 0; i < Integer.parseInt(size); i++) {
@@ -48,7 +50,6 @@ public class StudentClass {
             Student student = new Student(name);
             students.add(student);
         }
-
         sort();
     }
 

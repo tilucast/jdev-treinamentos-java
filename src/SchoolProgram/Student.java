@@ -3,38 +3,35 @@ package SchoolProgram;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Student {
+public class Student extends Person{
 
     //fields, atrributes
 
-    private String name;
-    private int age;
-    private String dateOfBirth;
-    private String SSN;
-    private String motherName;
-    private String fatherName;
     private Date dateEnrollment;
     private double average;
     private List<Subject> subjects = new ArrayList();
     private String studentStatus;
 
     Student(){
-        name = "Lulio";
-        age = 15;
-        dateOfBirth = "12-09-1967";
-        SSN = "2844657";
-        motherName = "Lulia";
-        fatherName = "Lulião";
+        super.setName("Lulio");
+        super.setAge(15);
+        super.setDateOfBirth("12-09-1967");
+        super.setSSN("2844657");
+        super.setMotherName("Lulia");
+        super.setFatherName("Lulião");
         dateEnrollment = new Date();
+
+        HandleListOfSubjects.populate(subjects);
+        calculateAverage();
     }
 
     Student(String name){
-        this.name =  name;
-        age = 15;
-        dateOfBirth = "12-09-1967";
-        SSN = "2844657";
-        motherName = "Lulia";
-        fatherName = "Lulião";
+        super.setName(name);
+        super.setAge(15);
+        super.setDateOfBirth("12-09-1967");
+        super.setSSN("2844657");
+        super.setMotherName("Lulia");
+        super.setFatherName("Lulião");
         dateEnrollment = new Date();
 
         HandleListOfSubjects.populate(subjects);
@@ -42,64 +39,16 @@ public class Student {
     }
 
     Student(String name, int age, String dateOfBirth, String SSN, String motherName, String fatherName){
-        this.name = name;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-        this.SSN = SSN;
-        this.motherName = motherName;
-        this.fatherName = fatherName;
+        super.setName(name);
+        super.setAge(age);
+        super.setDateOfBirth(dateOfBirth);
+        super.setSSN(SSN);
+        super.setMotherName(motherName);
+        super.setFatherName(fatherName);
         dateEnrollment = new Date();
 
         HandleListOfSubjects.populate(subjects);
         calculateAverage();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getSSN() {
-        return SSN;
-    }
-
-    public void setSSN(String SSN) {
-        this.SSN = SSN;
-    }
-
-    public String getMotherName() {
-        return motherName;
-    }
-
-    public void setMotherName(String motherName) {
-        this.motherName = motherName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
     }
 
     public Date getDateEnrollment() {
@@ -123,9 +72,9 @@ public class Student {
     }
 
     private void calculateAverage(){
-//        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
+        //either of these yields to the same result. Apparently, average is using some sort of reduction under the hood.
 
-        //either of these yields to the same result. But apparently, average is using some sort of reduction under the hood.
+//        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
 
         average = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum) / subjects.size();
         setStudentStatus();
@@ -150,12 +99,12 @@ public class Student {
     @Override
     public String toString() {
         return "Student{\n" +
-                " name='" + name + '\'' +
-                ",\n age=" + age +
-                ",\n dateOfBirth='" + dateOfBirth + '\'' +
-                ",\n SSN='" + SSN + '\'' +
-                ",\n motherName='" + motherName + '\'' +
-                ",\n fatherName='" + fatherName + '\'' +
+                " name='" + super.getName() + '\'' +
+                ",\n age=" + super.getAge() +
+                ",\n dateOfBirth='" + super.getDateOfBirth() + '\'' +
+                ",\n SSN='" + super.getSSN() + '\'' +
+                ",\n motherName='" + super.getMotherName() + '\'' +
+                ",\n fatherName='" + super.getFatherName() + '\'' +
                 ",\n dateEnrollment=" + dateEnrollment +
                 ",\n average=" + average + '\'' +
                 ",\n subjects=" + subjects + '\'' +
@@ -168,11 +117,11 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return age == student.age && Double.compare(student.average, average) == 0 && name.equals(student.name) && dateOfBirth.equals(student.dateOfBirth) && SSN.equals(student.SSN) && motherName.equals(student.motherName) && fatherName.equals(student.fatherName) && dateEnrollment.equals(student.dateEnrollment);
+        return super.getAge() == student.getAge() && Double.compare(student.average, average) == 0 && super.getName().equals(student.getName()) && super.getDateOfBirth().equals(student.getDateOfBirth()) && super.getSSN().equals(student.getSSN()) && super.getMotherName().equals(student.getMotherName()) && super.getFatherName().equals(student.getFatherName()) && dateEnrollment.equals(student.dateEnrollment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, dateOfBirth, SSN, motherName, fatherName, dateEnrollment, average);
+        return Objects.hash(super.getName(), super.getAge(), super.getDateOfBirth(), super.getSSN(), super.getMotherName(), super.getFatherName(), dateEnrollment, average);
     }
 }
