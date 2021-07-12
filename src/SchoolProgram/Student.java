@@ -34,7 +34,7 @@ public class Student extends Person{
         super.setFatherName("Lulião");
         dateEnrollment = new Date();
 
-        HandleListOfSubjects.populate(subjects);
+        //HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
 
@@ -123,5 +123,10 @@ public class Student extends Person{
     @Override
     public int hashCode() {
         return Objects.hash(super.getName(), super.getAge(), super.getDateOfBirth(), super.getSSN(), super.getMotherName(), super.getFatherName(), dateEnrollment, average);
+    }
+
+    @Override
+    public void doExists(){
+        System.out.println("I am a student.");
     }
 }

@@ -71,4 +71,6 @@ public abstract class Person {
     public int hashCode() {
         return Objects.hash(name, age, dateOfBirth, SSN, motherName, fatherName);
     }
+
+    public abstract void doExists();
 }
