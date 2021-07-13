@@ -46,10 +46,38 @@ public class Subject {
         average = Arrays.stream(scores).average().orElse(Double.MIN_VALUE);
     }
 
+    public double getMaxScore(){
+        double max = 0;
+        for (int i = 0; i < scores.length; i++) {
+            if(max < scores[i]){
+                max = scores[i];
+            }
+        }
+        return max;
+
+       //return Arrays.stream(scores).max().orElse(Double.MIN_VALUE);
+
+    }
+
+    public double getMinScore(){
+        double min = scores[0];
+        for (int i = 1; i < scores.length; i++) {
+            if(min > scores[i]){
+                min = scores[i];
+            }
+        }
+
+        return min;
+
+        //return Arrays.stream(scores).min().orElse(Double.MIN_VALUE);
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\n    scores=" + Arrays.toString(scores) +
+                ",\n    max score='" + getMaxScore() + '\'' +
+                ",\n    min score='" + getMinScore() + '\'' +
                 ",\n    subject='" + subject + '\'' +
                 ",\n    average='" + average + '\'' +
                 "\n}";

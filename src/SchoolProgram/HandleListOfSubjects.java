@@ -1,6 +1,7 @@
 package SchoolProgram;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,12 @@ abstract public class HandleListOfSubjects {
         int size = Integer.parseInt(
                 JOptionPane.showInputDialog("Type the number of subjects: "));
 
+        HashMap<Integer, String> current = new HashMap();
+        current.put(0, "first");
+        current.put(1, "second");
+        current.put(2, "third");
+        current.put(3, "fourth");
+
         for (int i = 0; i < size; i++) {
 
             Subject subject = new Subject();
@@ -18,7 +25,8 @@ abstract public class HandleListOfSubjects {
             subject.setSubject(JOptionPane.showInputDialog("Type the subject: "));
 
             for (int i1 = 0; i1 < subject.getScores().length; i1++) {
-                double score = Double.parseDouble(JOptionPane.showInputDialog("Type the score (1-5)"));
+                String inputString = String.format("Type the %s score (1-5)", current.get(i1));
+                double score = Double.parseDouble(JOptionPane.showInputDialog(inputString));
                 subject.setScore(i1, score);
             }
 
