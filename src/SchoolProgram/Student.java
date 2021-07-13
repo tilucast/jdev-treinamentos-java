@@ -13,25 +13,23 @@ public class Student extends Person{
     private String studentStatus;
 
     Student(){
-        super.setName("Lulio");
-        super.setAge(15);
-        super.setDateOfBirth("12-09-1967");
-        super.setSSN("2844657");
-        super.setMotherName("Lulia");
-        super.setFatherName("Lulião");
+        super("Lulio", 15, "12-09-1967", "2844657", "Lulia", "Lulião");
         dateEnrollment = new Date();
 
-        HandleListOfSubjects.populate(subjects);
+        //HandleListOfSubjects.populate(subjects);
+        calculateAverage();
+    }
+
+    Student(String name, int age){
+        super(name, age, "12-09-1967", "2844657", "Lulia", "Lulião");
+        dateEnrollment = new Date();
+
+        //HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
 
     Student(String name){
-        super.setName(name);
-        super.setAge(15);
-        super.setDateOfBirth("12-09-1967");
-        super.setSSN("2844657");
-        super.setMotherName("Lulia");
-        super.setFatherName("Lulião");
+        super(name, 15, "12-09-1967", "2844657", "Lulia", "Lulião");
         dateEnrollment = new Date();
 
         //HandleListOfSubjects.populate(subjects);
@@ -39,15 +37,9 @@ public class Student extends Person{
     }
 
     Student(String name, int age, String dateOfBirth, String SSN, String motherName, String fatherName){
-        super.setName(name);
-        super.setAge(age);
-        super.setDateOfBirth(dateOfBirth);
-        super.setSSN(SSN);
-        super.setMotherName(motherName);
-        super.setFatherName(fatherName);
-        dateEnrollment = new Date();
+        super(name, age, dateOfBirth, SSN, motherName, fatherName);
 
-        HandleListOfSubjects.populate(subjects);
+        //HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
 
@@ -72,11 +64,12 @@ public class Student extends Person{
     }
 
     private void calculateAverage(){
-        //either of these yields to the same result. Apparently, average is using some sort of reduction under the hood.
+//        either of these yields to the same result. Apparently, average is using some sort of reduction under the hood.
 
 //        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
 
-        average = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum) / subjects.size();
+        Double x = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum);
+        average = x.isNaN() ? 0.0 : x;
         setStudentStatus();
     }
 
@@ -106,8 +99,8 @@ public class Student extends Person{
                 ",\n motherName='" + super.getMotherName() + '\'' +
                 ",\n fatherName='" + super.getFatherName() + '\'' +
                 ",\n dateEnrollment=" + dateEnrollment +
-                ",\n average=" + average + '\'' +
-                ",\n subjects=" + subjects + '\'' +
+                ",\n average=" + average +
+                ",\n subjects=" + subjects +
                 ",\n status=" + studentStatus + '\'' +
                 "}\n";
     }

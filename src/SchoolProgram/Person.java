@@ -11,6 +11,17 @@ public abstract class Person {
     private String motherName;
     private String fatherName;
 
+    Person(){}
+
+    Person(String name, int age, String dateOfBirth, String SSN, String motherName, String fatherName){
+        this.name = name;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+        this.SSN = SSN;
+        this.motherName = motherName;
+        this.fatherName = fatherName;
+    }
+
     public String getName() {
         return name;
     }

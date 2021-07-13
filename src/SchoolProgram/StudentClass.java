@@ -1,10 +1,9 @@
 package SchoolProgram;
 
+import SchoolProgram.CustomExceptions.CalculateAverage;
+
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class StudentClass {
 
@@ -39,17 +38,39 @@ public class StudentClass {
         String size = JOptionPane.showInputDialog("How many students do you want to create?");
         for (int i = 0; i < Integer.parseInt(size); i++) {
 
-            String name = JOptionPane.showInputDialog("Student name: ");
-//            int age = Integer.parseInt(JOptionPane.showInputDialog("Student age: "));
-//            String dateOfBirth = JOptionPane.showInputDialog("Student date of birth: ");
-//            String SSN = JOptionPane.showInputDialog("Student SSN");
-//            String motherName=  JOptionPane.showInputDialog("Student's mother's name");
-//            String fatherName=  JOptionPane.showInputDialog("Student's father's name");
-//
-//            Student student = new Student(name, age, dateOfBirth, SSN, motherName, fatherName);
-            Student student = new Student(name);
-            students.add(student);
+            try{
+
+                String name = JOptionPane.showInputDialog("Student name: ");
+//                int age = Integer.parseInt(JOptionPane.showInputDialog("Student age: "));
+//                String dateOfBirth = JOptionPane.showInputDialog("Student date of birth: ");
+//                String SSN = JOptionPane.showInputDialog("Student SSN");
+//                String motherName=  JOptionPane.showInputDialog("Student's mother's name");
+//                String fatherName=  JOptionPane.showInputDialog("Student's father's name");
+
+                //Student student = new Student(name, age, dateOfBirth, SSN, motherName, fatherName);
+                Student student = new Student(name);
+                students.add(student);
+
+                throw new CalculateAverage("Something went wrong when calculating average");
+            }
+            catch(NumberFormatException e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Por favor, atribua um número à idade.");
+            }
+            catch(CalculateAverage e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Erro ao calcular média.");
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Erro ao adicionar alunos.");
+            }
+            finally {
+                System.out.println("I am going to be executed no matter what happens above.");
+            }
+
         }
+
         sort();
     }
 
@@ -97,7 +118,6 @@ public class StudentClass {
     }
 
     // -------------
-
 
     @Override
     public String toString() {
