@@ -12,12 +12,18 @@ abstract public class HandleListOfSubjects {
                 JOptionPane.showInputDialog("Type the number of subjects: "));
 
         for (int i = 0; i < size; i++) {
-            subjects.add(new Subject());
-            Subject subject = subjects.get(i);
+
+            Subject subject = new Subject();
+            subjects.add(subject);
             subject.setSubject(JOptionPane.showInputDialog("Type the subject: "));
-            subject.setScore(
-                    Double.parseDouble(JOptionPane.showInputDialog("Type the score (1-5)"))
-            );
+
+            for (int i1 = 0; i1 < subject.getScores().length; i1++) {
+                double score = Double.parseDouble(JOptionPane.showInputDialog("Type the score (1-5)"));
+                subject.setScore(i1, score);
+            }
+
+            subject.setAverage();
+
         }
     }
 

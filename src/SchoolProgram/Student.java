@@ -32,7 +32,7 @@ public class Student extends Person{
         super(name, 15, "12-09-1967", "2844657", "Lulia", "Lulião");
         dateEnrollment = new Date();
 
-        //HandleListOfSubjects.populate(subjects);
+        HandleListOfSubjects.populate(subjects);
         calculateAverage();
     }
 
@@ -67,8 +67,7 @@ public class Student extends Person{
 //        either of these yields to the same result. Apparently, average is using some sort of reduction under the hood.
 
 //        average =  subjects.stream().mapToDouble(n -> n.getScore()).average().orElse(Double.MIN_VALUE);
-
-        Double x = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getScore(), Double::sum);
+        Double x = subjects.stream().reduce(0.0, (acc, subject) -> acc + subject.getAverage(), Double::sum) / subjects.size();
         average = x.isNaN() ? 0.0 : x;
         setStudentStatus();
     }

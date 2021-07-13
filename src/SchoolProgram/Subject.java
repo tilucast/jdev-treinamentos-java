@@ -1,27 +1,33 @@
 package SchoolProgram;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Subject {
 
-    private double score;
+    private double scores[] = new double[4];
     private String subject;
+    private double average;
 
     Subject(){
 
     }
 
-    Subject(double score, String subject){
-        this.score = score;
+    Subject(double[] scores, String subject){
+        this.scores = scores;
         this.subject = subject;
     }
 
-    public double getScore() {
-        return score;
+    public double[] getScores() {
+        return scores;
     }
 
-    public void setScore(double score) {
-        this.score = score;
+    public void setScores(double[] scores) {
+        this.scores = scores;
+    }
+
+    public void setScore(int index, double value){
+        scores[index] = value;
     }
 
     public String getSubject() {
@@ -32,11 +38,20 @@ public class Subject {
         this.subject = subject;
     }
 
+    public double getAverage(){
+        return average;
+    }
+
+    public void setAverage(){
+        average = Arrays.stream(scores).average().orElse(Double.MIN_VALUE);
+    }
+
     @Override
     public String toString() {
         return "{" +
-                "\n    score=" + score +
+                "\n    scores=" + Arrays.toString(scores) +
                 ",\n    subject='" + subject + '\'' +
+                ",\n    average='" + average + '\'' +
                 "\n}";
     }
 
@@ -45,11 +60,13 @@ public class Subject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subject subject1 = (Subject) o;
-        return Double.compare(subject1.score, score) == 0 && subject.equals(subject1.subject);
+        return Arrays.equals(scores, subject1.scores) && subject.equals(subject1.subject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(score, subject);
+        int result = Objects.hash(subject);
+        result = 31 * result + Arrays.hashCode(scores);
+        return result;
     }
 }

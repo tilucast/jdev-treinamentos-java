@@ -51,16 +51,16 @@ public class StudentClass {
                 Student student = new Student(name);
                 students.add(student);
 
-                throw new CalculateAverage("Something went wrong when calculating average");
+                //throw new CalculateAverage("Something went wrong when calculating average");
             }
             catch(NumberFormatException e){
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Por favor, atribua um número à idade.");
             }
-            catch(CalculateAverage e){
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Erro ao calcular média.");
-            }
+//            catch(CalculateAverage e){
+//                e.printStackTrace();
+//                JOptionPane.showMessageDialog(null, "Erro ao calcular média.");
+//            }
             catch(Exception e){
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar alunos.");
