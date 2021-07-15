@@ -67,17 +67,22 @@ public class SwingThreadExample extends JDialog {
         jpanel.add(stop, grid);
 
         start.addActionListener(event -> {
+            stop.setEnabled(true);
+            start.setEnabled(false);
             newthreadx.set(new Thread(threadx));
             newthreadx.get().start();
             newthready.set(new Thread(thready));
             newthready.get().start();
         });
         stop.addActionListener(event -> {
+            stop.setEnabled(false);
+            start.setEnabled(true);
             newthreadx.get().stop();
             newthready.get().stop();
         });
 
         add(jpanel, BorderLayout.WEST);
+        stop.setEnabled(false);
         setVisible(true);
     }
 

@@ -12,7 +12,17 @@ public class Main {
 //
 //        System.out.println("I dont need to wait to be executed.");
 
-        SwingThreadExample somescreen = new SwingThreadExample();
+//        SwingThreadExample somescreen = new SwingThreadExample();
+
+        QueueThreads queueThread = new QueueThreads();
+        for (int i = 0; i < 200; i++) {
+            QueueObject queueObject = new QueueObject(Math.ceil(Math.random() * 500));
+            QueueThreads.add(queueObject);
+
+            if(i == 1){
+                queueThread.start();
+            }
+        }
     }
 
     static Runnable somethread = () -> {
